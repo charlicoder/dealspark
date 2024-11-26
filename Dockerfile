@@ -37,4 +37,4 @@ RUN chmod +x /app/entrypoint_prod.sh
 EXPOSE 8000
 
 # Set the entrypoint script as the container entrypoint
-ENTRYPOINT ["/app/entrypoint_prod.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
