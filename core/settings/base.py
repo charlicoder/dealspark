@@ -8,7 +8,7 @@ DEBUG = config("DEBUG", default=True, cast=bool)
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-
+ALLOWED_HOSTS = ["74.48.108.41", "dealspark.xyz"]
 # Application definition
 
 INSTALLED_APPS = [
