@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}deals-index-page{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for product in product_pages %}
+        {% with product=product.specific %}
+            <h2><a href="{% pageurl product %}">{{ product.title }}</a></h2>
+
+            {% with product.main_image as main_image %}
+                {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
+            {% endwith %}
+            <p>{{ product.intro }}</p>
+            {{ product.body|richtext }}
+        {% endwith %}
+    {% endfor %}
+
+{% endblock %}

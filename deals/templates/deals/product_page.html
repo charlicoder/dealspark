@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}product-page{% endblock %}
+
+{% block extra_css %}
+{# Override this in templates to add extra stylesheets #}
+<style>
+    #blinking-text {
+        animation: blink-animation 1s infinite step-end;
+    }
+    
+    @keyframes blink-animation {
+        50% {
+            visibility: hidden;
+        }
+    }
+    .slideshow-container {
+        max-width: 600px;
+        position: relative;
+        margin: auto;
+        overflow: hidden;
+    }
+    .slideshow-slide {
+        display: none;
+        text-align: center;
+    }
+    .slideshow-slide img {
+        max-width: 100%;
+        height: auto;
+    }
+    .slideshow-caption {
+        margin-top: 10px;
+        font-size: 16px;
+        color: #555;
+    }
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        font-size: 18px;
+        user-select: none;
+    }
+    .prev { left: 0; }
+    .next { right: 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="hero" class="hero section">
+
+    <div class="container">
+        <div class="row mb-3 mt-3 text-center border-bottom p-2">
+            <div class="col">
+                <a href="{{ page.affiliate_link }}" target="_blank" class="btn-get-started">Buy</a>
+            </div>
+            {% if page.specail_intro %}
+            <div class="col">
+                <p id="blinking-text" class='text-danger'>{{ page.specail_intro }}</p>
+            </div>
+            {% endif %}
+            {% if page.youtube_url %}
+            <div class="col">
+                <a href="#" class="btn-watch-video align-items-center" data-bs-toggle="modal" data-bs-target="#youtubeModal">
+                    <i class="bi bi-play-circle"></i><span>Watch Video</span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+        
+        <div class="row gy-4">
+            <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+                <h1>{{ page.title }}</h1>
+                <p>{{ page.body|richtext }}</p>
+                
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img">
+            
+                <div class="slideshow-container">
+                    {% for item in page.gallery_images.all %}
+                    <div class="slideshow-slide">
+                        {% image item.image fill-520x480 %}
+                        <p class="slideshow-caption">{{ item.caption }}</p>
+                    </div>
+                    {% endfor %}
+                
+                    <!-- Navigation buttons -->
+                    <button class="prev" onclick="plusSlides(-1)">&#10094;</button>
+                    <button class="next" onclick="plusSlides(1)">&#10095;</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3 mt-3 text-center p-2 pb-3">
+            <div class="col">
+                <a href="{{ page.affiliate_link }}" target="_blank" class="btn-get-started">Buy</a>
+            </div>
+            {% if page.youtube_url %}
+            <div class="col">
+                <a href="#" class="btn-watch-video align-items-center" data-bs-toggle="modal" data-bs-target="#youtubeModal">
+                    <i class="bi bi-play-circle"></i><span>Watch Video</span>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="youtubeModal" tabindex="-1" aria-labelledby="youtubeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="youtubeModalLabel">Watch Video</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- YouTube Video -->
+                <div class="ratio ratio-16x9">
+                    <iframe id="youtubeIframe" src="" title="YouTube video" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slideshow-slide');
+    let autoSlideInterval;
+
+    function showSlides(index) {
+        // Reset all slides
+        slides.forEach(slide => slide.style.display = 'none');
+        // Show the selected slide
+        slides[(index + slides.length) % slides.length].style.display = 'block';
+    }
+
+    function plusSlides(step) {
+        slideIndex += step;
+        showSlides(slideIndex);
+        resetAutoSlide(); // Reset auto-slide timer on manual navigation
+    }
+
+    function autoSlide() {
+        slideIndex++;
+        showSlides(slideIndex);
+    }
+
+    function resetAutoSlide() {
+        clearInterval(autoSlideInterval); // Clear the existing interval
+        autoSlideInterval = setInterval(autoSlide, 5000); // Restart the auto-slide timer
+    }
+
+    // Auto-show the first slide and start the auto-slide timer on load
+    document.addEventListener('DOMContentLoaded', () => {
+        showSlides(slideIndex);
+        autoSlideInterval = setInterval(autoSlide, 5000);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const modal = document.getElementById('youtubeModal');
+        const iframe = document.getElementById('youtubeIframe');
+        let youtubeUrl = "{{ page.youtube_url }}";
+
+        // Convert to embed format
+        youtubeUrl = youtubeUrl.replace('watch?v=', 'embed/');
+
+        modal.addEventListener('show.bs.modal', function () {
+            iframe.src = youtubeUrl;
+        });
+
+        modal.addEventListener('hide.bs.modal', function () {
+            iframe.src = ''; // Clear the iframe when the modal is hidden
+        });
+    });
+</script>
+
+{% endblock %}
