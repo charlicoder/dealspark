@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_celery_results",
+    # "django_celery_results",
 ]
 
 MIDDLEWARE = [
@@ -223,16 +223,16 @@ LOGGING = {
 #     }
 # }
 
-CELERY_ACCEPT_CONTENT = ["application/json"]
+# CELERY_ACCEPT_CONTENT = ["application/json"]
 
-CELERY_RESULT_SERIALIZER = "json"
+# CELERY_RESULT_SERIALIZER = "json"
 
-CELERY_TASK_SERIALIZER = "json"
+# CELERY_TASK_SERIALIZER = "json"
 
-CELERY_BROKER_URL = config("REDIS_URL", "redis://127.0.0.1:6379/0")
+# CELERY_BROKER_URL = config("REDIS_URL", "redis://127.0.0.1:6379/0")
 
-CELERY_RESULT_BACKEND = "django-db"
+# CELERY_RESULT_BACKEND = "django-db"
 
-# CELERY_CACHE_BACKEND = "django-cache"
+# # CELERY_CACHE_BACKEND = "django-cache"
 
-CELERY_TASK_DEFAULT_QUEUE = config("CELERY_TASK_DEFAULT_QUEUE", "dealspark_queue")
+# CELERY_TASK_DEFAULT_QUEUE = config("CELERY_TASK_DEFAULT_QUEUE", "dealspark_queue")

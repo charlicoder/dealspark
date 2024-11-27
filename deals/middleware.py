@@ -17,7 +17,7 @@ class VisitorTrackingMiddleware:
         data["user_agent"] = request.META.get("HTTP_USER_AGENT")
         data["path"] = request.path
 
-        visitors_tracking.delay(data)
+        visitors_tracking(data)
 
         # logger.info(
         #     f"Visitor IP: {request.META.get('REMOTE_ADDR')}, User Agent: {request.META.get('HTTP_USER_AGENT')}, URL: {request.path}"
