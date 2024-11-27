@@ -45,7 +45,7 @@
                             <h5 id="blinking-text" class="card-title">{{ product.specail_intro }}</h5>
                             {% if product.title %}
                                 <h6 class="card-subtitle mb-2 text-danger font-weight-bold">
-                                    {{ product.title }}
+                                    <a href={% pageurl product %}>{{ product.title }}</a>
                                 </h6>
                             {% endif %}
                             <p class="card-text">

@@ -12,6 +12,7 @@ ALLOWED_HOSTS = ["74.48.108.41", "dealspark.xyz"]
 # Application definition
 
 INSTALLED_APPS = [
+    "analytics",
     "deals",
     "home",
     "search",
@@ -34,6 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_celery_results",
 ]
 
 MIDDLEWARE = [
@@ -209,3 +211,28 @@ LOGGING = {
         },
     },
 }
+
+
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
+#         "LOCATION": config("REDIS_URL", "redis://127.0.0.1:6379/"),
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         },
+#     }
+# }
+
+CELERY_ACCEPT_CONTENT = ["application/json"]
+
+CELERY_RESULT_SERIALIZER = "json"
+
+CELERY_TASK_SERIALIZER = "json"
+
+CELERY_BROKER_URL = config("REDIS_URL", "redis://127.0.0.1:6379/0")
+
+CELERY_RESULT_BACKEND = "django-db"
+
+# CELERY_CACHE_BACKEND = "django-cache"
+
+CELERY_TASK_DEFAULT_QUEUE = config("CELERY_TASK_DEFAULT_QUEUE", "dealspark_queue")
