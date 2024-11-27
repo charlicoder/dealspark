@@ -3,22 +3,61 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}deals-index-page{% endblock %}
+{% block extra_css %}
+{# Override this in templates to add extra stylesheets #}
+<style>
+    #blinking-text {
+        animation: blink-animation 1.5s infinite step-end;
+    }
+    
+    @keyframes blink-animation {
+        50% {
+            visibility: hidden;
+        }
+    }
+    .card-image {
+        width: 100%;
+    }
+</style>
+{% endblock extra_css %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
+    
 
-    <div class="intro">{{ page.intro|richtext }}</div>
-
-    {% for product in product_pages %}
-        {% with product=product.specific %}
-            <h2><a href="{% pageurl product %}">{{ product.title }}</a></h2>
-
-            {% with product.main_image as main_image %}
-                {% if main_image %}{% image main_image fill-160x100 %}{% endif %}
-            {% endwith %}
-            <p>{{ product.intro }}</p>
-            {{ product.body|richtext }}
-        {% endwith %}
-    {% endfor %}
+    <div class="container product-list">
+        <div class="row">
+            <div class="col text-center">
+                <h1>{{ page.title }}</h1>
+            </div>
+        </div>
+        <div class="row">
+            {% for product in product_pages %}
+                {% with product=product.specific %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        {% with product.main_image as main_image %}
+                            {% if main_image %}
+                                {% image main_image width-500 height-320 class="card-image"  %}
+                                
+                            {% endif %}
+                        {% endwith %}
+                        <div class="card-body">
+                            <h5 id="blinking-text" class="card-title">{{ product.specail_intro }}</h5>
+                            {% if product.title %}
+                                <h6 class="card-subtitle mb-2 text-danger font-weight-bold">
+                                    {{ product.title }}
+                                </h6>
+                            {% endif %}
+                            <p class="card-text">
+                                <strong>Price:</strong> ${{ product.price }}<br>
+                            </p>
+                            <a href="{{ product.affiliate_link }}" class="btn btn-success" target="_blank">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
+            {% endfor %}
+        </div>
+    </div>    
 
 {% endblock %}

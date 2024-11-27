@@ -45,6 +45,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+    "deals.middleware.VisitorTrackingMiddleware",
 ]
 
 ROOT_URLCONF = "core.urls"
@@ -189,3 +190,22 @@ WAGTAILDOCS_EXTENSIONS = [
     "xlsx",
     "zip",
 ]
+
+
+LOGGING = {
+    "version": 1,
+    "handlers": {
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "visitor_tracking.log",
+        },
+    },
+    "loggers": {
+        "visitor_tracking": {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": True,
+        },
+    },
+}

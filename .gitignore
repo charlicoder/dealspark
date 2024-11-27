@@ -7,4 +7,5 @@ media/
 data/
 static
 staticfiles
+visitor_tracking.log
 
