@@ -9,6 +9,8 @@ PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 ALLOWED_HOSTS = ["74.48.108.41", "dealspark.xyz", "127.0.0.1"]
+
+CSRF_TRUSTED_ORIGINS = ["https://dealspark.xyz"]
 # Application definition
 
 INSTALLED_APPS = [
