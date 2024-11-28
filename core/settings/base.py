@@ -89,7 +89,7 @@ else:
             "NAME": config("DB_NAME"),  # Database name from .env
             "USER": config("DB_USER"),  # Database user from .env
             "PASSWORD": config("DB_PASSWORD"),  # Database password from .env
-            "HOST": "127.0.0.1",  # Database host, default is localhost
+            "HOST": config("DB_HOST"),  # Database host, default is localhost
             "PORT": 5432,  # Database port, default is 5432
         }
     }
