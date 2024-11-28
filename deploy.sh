@@ -27,7 +27,7 @@ docker run -d \
     --restart=unless-stopped \
     --name dealspark \
     -p 8000:8000 \
-    -v data:/app/data
+    -v data:/app/data \
     dealspark
 
 echo "We are done !"
