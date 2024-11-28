@@ -4,7 +4,7 @@
 **/__pycache__
 
 media/
-data/
+data/dealspark.sqlite3
 static
 staticfiles
 visitor_tracking.log
