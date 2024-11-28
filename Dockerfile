@@ -21,9 +21,7 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt /app/
 
 # Install the dependencies
-RUN pip install --upgrade pip && pip install httpx
-RUN pip install -r requirements.txt
-
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copy the entire Django project to the container
 COPY . /app/

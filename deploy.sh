@@ -21,7 +21,12 @@ docker ps -a | egrep 'dealspark' | awk '{print $1}'| xargs docker rm
 
 echo "running the dealspark using docker"
 
-docker run --rm --name dealspark -p 8000:8000 dealspark
+# docker run --name dealspark -p 8000:8000 dealspark
 
+docker run -d \
+    --restart=unless-stopped \
+    --name dealspark \
+    -p 8000:8000 \
+    dealspark
 
 echo "We are done !"
