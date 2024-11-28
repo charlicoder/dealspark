@@ -26,14 +26,7 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copy the entire Django project to the container
 COPY . /app/
 
-# COPY entrypoint_prod.sh /app/
-
-# Grant execute permissions to the entrypoint script
-# RUN chmod +x /app/entrypoint_prod.sh
-
 # Expose the port that Gunicorn will listen on
 EXPOSE 8000
 
-# Set the entrypoint script as the container entrypoint
-# ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
