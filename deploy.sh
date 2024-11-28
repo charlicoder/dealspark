@@ -28,6 +28,8 @@ docker run -d \
     --name dealspark \
     -p 8000:8000 \
     -v $(pwd)/data:/app/data \
+    -v $(pwd)/media:/app/media \
+    -v $(pwd)/staticfiles:/app/staticfiles \
     dealspark
 
 echo "We are done !"
