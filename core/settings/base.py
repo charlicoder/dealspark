@@ -75,24 +75,12 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-if ENV == "dev" and DEBUG == True:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "data/db.sqlite3"),
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": os.path.join(BASE_DIR, "data/db.sqlite3"),
     }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql",
-            "NAME": config("DB_NAME"),  # Database name from .env
-            "USER": config("DB_USER"),  # Database user from .env
-            "PASSWORD": config("DB_PASSWORD"),  # Database password from .env
-            "HOST": config("DB_HOST"),  # Database host, default is localhost
-            "PORT": 5432,  # Database port, default is 5432
-        }
-    }
+}
 
 
 # Password validation
@@ -222,6 +210,7 @@ LOGGING = {
 #         },
 #     }
 # }
+
 
 CELERY_ACCEPT_CONTENT = ["application/json"]
 
